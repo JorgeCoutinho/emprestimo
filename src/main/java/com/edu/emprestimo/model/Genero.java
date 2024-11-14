@@ -1,13 +1,25 @@
 package com.edu.emprestimo.model;
 
-public class Usuario {
-    
-    private Long id;
-    private String nome;
-    private String endereco;
-    private String telefone;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
-    public Usuario() {
+@Entity
+public class Genero {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String descricao;
+
+    @OneToMany(mappedBy = "genero")
+    private List<Livro> livros = new ArrayList<>();
+    
+    public Genero() {
     }
 
     public Long getId() {
@@ -18,28 +30,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override
@@ -58,7 +54,7 @@ public class Usuario {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Usuario other = (Usuario) obj;
+        Genero other = (Genero) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

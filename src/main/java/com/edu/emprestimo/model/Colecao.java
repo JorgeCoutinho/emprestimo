@@ -7,38 +7,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
-public class Livro {
+public class Colecao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String titulo;
-    private Long nPaginas;
-    private Double valorDaMulta;
+    private String nome;
 
-    
-    @ManyToOne
-    @JoinColumn(name = "genero_id")
-    private Genero genero;
+    @OneToMany(mappedBy = "colecao")
+    private List<Livro> livros = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "editora_id")
-    private Editora editora;
 
-    @OneToMany(mappedBy = "livro")
-    private List<Empresta> emprestimos = new ArrayList<>();
-
-    @OneToOne
-    @JoinColumn(name = "colecao_id")
-    private Colecao colecao;
-
-    public Livro() {
+    public Colecao() {
     }
 
     public Long getId() {
@@ -49,28 +32,12 @@ public class Livro {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public Long getnPaginas() {
-        return nPaginas;
-    }
-
-    public void setnPaginas(Long nPaginas) {
-        this.nPaginas = nPaginas;
-    }
-
-    public Double getValorDaMulta() {
-        return valorDaMulta;
-    }
-
-    public void setValorDaMulta(Double valorDaMulta) {
-        this.valorDaMulta = valorDaMulta;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
@@ -89,7 +56,7 @@ public class Livro {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Livro other = (Livro) obj;
+        Colecao other = (Colecao) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -100,5 +67,4 @@ public class Livro {
 
     
 
-    
 }

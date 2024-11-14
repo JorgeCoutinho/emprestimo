@@ -1,12 +1,26 @@
 package com.edu.emprestimo.model;
-import java.util.Date;
 
-public class Devolucao {
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
+public class Editora {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dataDevolucao;
+    private String nome;
 
-    public Devolucao() {
+    @OneToMany(mappedBy = "editora")
+    private List<Livro> livros = new ArrayList<>();
+
+    public Editora() {
     }
 
     public Long getId() {
@@ -17,12 +31,12 @@ public class Devolucao {
         this.id = id;
     }
 
-    public Date getDataDevolucao() {
-        return dataDevolucao;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDataDevolucao(Date dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
@@ -41,7 +55,7 @@ public class Devolucao {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Devolucao other = (Devolucao) obj;
+        Editora other = (Editora) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

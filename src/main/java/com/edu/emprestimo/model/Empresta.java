@@ -1,14 +1,30 @@
 package com.edu.emprestimo.model;
 import java.util.Date;
 
-public class Emprestimos {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 
+import jakarta.persistence.ManyToOne;
+
+
+
+@Entity
+public class Empresta {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date dataEmprestimo;
     private Date dataDevolucao;
-    private Long qtdEmprestimo;
 
-    public Emprestimos() {
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Livro livro;
+
+    public Empresta() {
     }
 
     public Long getId() {
@@ -35,14 +51,6 @@ public class Emprestimos {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public Long getQtdEmprestimo() {
-        return qtdEmprestimo;
-    }
-
-    public void setQtdEmprestimo(Long qtdEmprestimo) {
-        this.qtdEmprestimo = qtdEmprestimo;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -59,7 +67,7 @@ public class Emprestimos {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Emprestimos other = (Emprestimos) obj;
+        Empresta other = (Empresta) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
