@@ -1,34 +1,29 @@
 package com.edu.emprestimo.model;
-import java.util.Date;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-
-import jakarta.persistence.ManyToOne;
-
-
+import jakarta.persistence.OneToMany;
 
 @Entity
-public class Empresta {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dataEmprestimo;
-    private Date dataDevolucao;
+    private String nome;
+    private String telefone;
+    private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "livro_id")
-    private Livro livro;
+    
+    @OneToMany(mappedBy = "usuario")
+    private List<Empresta> emprestimos = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    public Empresta() {
+    public Usuario() {
     }
 
     public Long getId() {
@@ -39,20 +34,28 @@ public class Empresta {
         this.id = id;
     }
 
-    public Date getDataEmprestimo() {
-        return dataEmprestimo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDataEmprestimo(Date dataEmprestimo) {
-        this.dataEmprestimo = dataEmprestimo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Date getDataDevolucao() {
-        return dataDevolucao;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setDataDevolucao(Date dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class Empresta {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Empresta other = (Empresta) obj;
+        Usuario other = (Usuario) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
